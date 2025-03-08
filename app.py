@@ -25,6 +25,31 @@ def load_data():
 
     return model, label_encoders
 
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        weekly_hours = float(request.form["weekly_hours"])
+        difficult_subject = request.form["difficult_subject"]
+        study_method = request.form["study_method"]
+        focus_time = request.form["focus_time"]
+
+        # AI 모델을 사용하여 주간 공부 시간 예측
+        predicted_hours = predict_study_hours(focus_time, study_method, difficult_subject, "자기 주도 학습")
+
+        # 주간 공부 시간 배분
+        study_plan = distribute_study_time(predicted_hours, difficult_subject, study_method)
+
+        # 하루 일정 생성
+        schedule, subject_hours = generate_daily_schedule(predicted_hours, focus_time, study_plan)
+
+        # 디버깅: 콘솔에 subject_hours 값 출력
+        print("DEBUG: subject_hours = ", subject_hours)
+
+        return render_template("result.html", study_plan=study_plan, schedule=schedule, subject_hours=subject_hours)
+
+    return render_template("index.html")
+
+
 # 모델 및 인코더 로드
 model, label_encoders = load_data()
 

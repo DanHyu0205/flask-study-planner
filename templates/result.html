@@ -94,7 +94,13 @@
                     <h3>{{ period }}</h3>
                     <ul>
                         {% for subject in subjects %}
-                            <li><strong>{{ subject }}</strong> - {{ subject_hours[subject] }}시간</li>
+                            <li><strong>{{ subject }}</strong> -
+                                {% if subject in subject_hours %}
+                                    {{ subject_hours[subject] }}시간
+                                {% else %}
+                                    (시간 정보 없음)
+                                {% endif %}
+                            </li>
                         {% endfor %}
                     </ul>
                 {% endfor %}
