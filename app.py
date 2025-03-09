@@ -34,16 +34,53 @@ def distribute_study_time(weekly_hours, difficult_subject, study_method):
 
     return {subject: round(hours, 1) for subject, hours in study_plan.items()}
 
+def generate_daily_schedule(weekly_hours, focus_time, study_plan):
+    """
+    주간 공부 시간을 하루 공부 시간으로 나누고,
+    학생이 가장 집중이 잘되는 시간대(오전, 오후, 밤)에 과목 배치를 최적화하는 함수
+    """
+    daily_hours = weekly_hours / 7  # 하루 공부 시간 계산
+    schedule = {"오전 (06:00~12:00)": [], "오후 (12:00~18:00)": [], "밤 (18:00~24:00)": []}
+
+    # 집중 시간대별 우선 배치
+    if focus_time == "오전 (06:00~12:00)":
+        schedule["오전 (06:00~12:00)"].append(max(study_plan, key=study_plan.get))
+    elif focus_time == "오후 (12:00~18:00)":
+        schedule["오후 (12:00~18:00)"].append(max(study_plan, key=study_plan.get))
+    elif focus_time == "밤 (18:00~24:00)":
+        schedule["밤 (18:00~24:00)"].append(max(study_plan, key=study_plan.get))
+
+    # 나머지 과목 시간 배분
+    remaining_subjects = [s for s in study_plan if s not in schedule["오전 (06:00~12:00)"] +
+                          schedule["오후 (12:00~18:00)"] + schedule["밤 (18:00~24:00)"]]
+
+    schedule["오전 (06:00~12:00)"].append(remaining_subjects[0])
+    schedule["오후 (12:00~18:00)"].append(remaining_subjects[1])
+    schedule["밤 (18:00~24:00)"].append(remaining_subjects[2])
+
+    # 하루 공부 시간 배정 (소수점 1자리)
+    subject_hours = {subject: round(study_plan[subject] / 7, 1) for subject in study_plan}
+
+    return schedule, subject_hours
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         weekly_hours = float(request.form["weekly_hours"])
-        difficult_subject = int(request.form["difficult_subject"])
-        study_method = int(request.form["study_method"])
+        difficult_subject = request.form["difficult_subject"]
+        study_method = request.form["study_method"]
+        focus_time = request.form["focus_time"]
 
-        study_plan = distribute_study_time(weekly_hours, difficult_subject, study_method)
+        # AI 모델을 사용하여 주간 공부 시간 예측
+        predicted_hours = predict_study_hours(focus_time, study_method, difficult_subject, "자기 주도 학습")
 
-        return render_template("result.html", study_plan=study_plan)
+        # 주간 공부 시간 배분
+        study_plan = distribute_study_time(predicted_hours, difficult_subject, study_method)
+
+        # 하루 일정 생성
+        schedule, subject_hours = generate_daily_schedule(predicted_hours, focus_time, study_plan)
+
+        return render_template("result.html", study_plan=study_plan, schedule=schedule, subject_hours=subject_hours)
 
     return render_template("index.html")
 
