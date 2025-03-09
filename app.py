@@ -9,13 +9,13 @@ app = Flask(__name__)
 
 # ✅ 1. 가상 데이터 생성
 def generate_fake_data():
-    np.random.seed(42)  # 랜덤 시드 고정
-    num_students = 100  # 100명의 가짜 학생 데이터 생성
+    np.random.seed(42)
+    num_students = 100
 
     focus_time = np.random.choice(["오전 (06:00~12:00)", "오후 (12:00~18:00)", "밤 (18:00~24:00)"], num_students)
     study_method = np.random.choice(["노트 필기", "문제 풀이", "인강 시청"], num_students)
     difficult_subject = np.random.choice(["국어", "수학", "영어", "과학탐구 또는 사회탐구"], num_students)
-    study_hours = np.random.randint(5, 40, num_students)  # 5~40시간 랜덤 배정
+    study_hours = np.random.randint(5, 40, num_students)
     current_schedule = np.random.choice(["자기 주도 학습", "학원 중심 학습", "학교 중심 학습"], num_students)
 
     df = pd.DataFrame({
@@ -48,7 +48,7 @@ def train_fake_ai_model():
 # ✅ 3. 모델 및 인코더 로드 (가상 데이터 기반)
 model, label_encoders = train_fake_ai_model()
 
-# ✅ 4. AI 모델을 이용한 공부 시간 예측 함수
+# ✅ 4. AI 모델을 이용한 공부 시간 예측 함수 (🔹 함수 순서 조정)
 def predict_study_hours(focus_time, study_method, difficult_subject, current_schedule):
     encoded_inputs = [
         label_encoders["집중시간대"].transform([focus_time])[0],
