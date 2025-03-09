@@ -6,41 +6,38 @@
     <title>AI 학습 스케줄 추천</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
             text-align: center;
             margin: 0;
             padding: 0;
         }
         .container {
-            width: 50%;
+            width: 40%;
             background: white;
             padding: 30px;
             margin: 50px auto;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
         }
         h1 {
-            font-size: 28px;
+            font-size: 26px;
             color: #333;
-            margin-bottom: 20px;
         }
         label {
             display: block;
             margin-top: 15px;
             font-size: 18px;
             font-weight: bold;
-            color: #555;
             text-align: left;
         }
-        select, input {
+        input, select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 5px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box;
         }
         button {
             background: #007bff;
@@ -67,10 +64,10 @@
     <div class="container">
         <h1>📚 AI 학습 스케줄 추천</h1>
         <form action="/" method="post">
-            <label>📌 원하는 주간 공부 시간 (시간)</label>
+            <label>📌 원하는 주간 공부 시간 (시간):</label>
             <input type="number" name="weekly_hours" required>
 
-            <label>📌 어려운 과목 선택</label>
+            <label>📌 어려운 과목 선택:</label>
             <select name="difficult_subject">
                 <option value="국어">국어</option>
                 <option value="수학">수학</option>
@@ -78,14 +75,14 @@
                 <option value="과학탐구 또는 사회탐구">과학탐구 또는 사회탐구</option>
             </select>
 
-            <label>📌 선호하는 학습법</label>
+            <label>📌 선호하는 학습법:</label>
             <select name="study_method">
                 <option value="노트 필기">노트 필기 (국어 & 영어 강화)</option>
                 <option value="문제 풀이">문제 풀이 (수학 & 과학탐구 또는 사회탐구 강화)</option>
                 <option value="인강 시청">인강 시청 (영어 & 과학탐구 또는 사회탐구 강화)</option>
             </select>
 
-            <label>📌 집중이 잘 되는 시간대</label>
+            <label>📌 집중이 잘 되는 시간대:</label>
             <select name="focus_time">
                 <option value="오전 (06:00~12:00)">오전 (06:00~12:00)</option>
                 <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
@@ -94,7 +91,9 @@
 
             <button type="submit">📊 학습 스케줄 추천 받기</button>
         </form>
-        <div class="footer">제작: 30911 박승훈</div>
+        <div class="footer">
+            제작: 30911 박승훈
+        </div>
     </div>
 </body>
 </html>
