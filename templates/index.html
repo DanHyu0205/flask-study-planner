@@ -5,10 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 학습 스케줄 추천</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .container { width: 50%; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
-        input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
-        button { background: #007bff; color: white; border: none; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            background: white;
+            padding: 30px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 28px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .footer {
+            font-size: 12px;
+            color: gray;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -23,18 +70,28 @@
                 <option value="0">국어</option>
                 <option value="1">수학</option>
                 <option value="2">영어</option>
-                <option value="3">과학</option>
+                <option value="3">과학탐구 또는 사회탐구</option>
             </select>
 
             <label>📌 선호하는 학습법:</label>
             <select name="study_method">
                 <option value="0">노트 필기 (국어 & 영어 강화)</option>
                 <option value="1">문제 풀이 (균형 배분)</option>
-                <option value="2">인강 시청 (영어 & 과학 강화)</option>
+                <option value="2">인강 시청 (영어 & 과학탐구 또는 사회탐구 강화)</option>
+            </select>
+
+            <label>📌 집중이 잘 되는 시간대:</label>
+            <select name="focus_time">
+                <option value="0">오전 (06:00~12:00)</option>
+                <option value="1">오후 (12:00~18:00)</option>
+                <option value="2">밤 (18:00~24:00)</option>
             </select>
 
             <button type="submit">📊 학습 스케줄 추천 받기</button>
         </form>
+        <div class="footer">
+            제작: 30911 박승훈
+        </div>
     </div>
 </body>
 </html>
