@@ -3,79 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>추천 학습 스케줄</title>
+    <title>AI 학습 스케줄 추천</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 60%;
-            background: white;
-            padding: 30px;
-            margin: 50px auto;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 28px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-        a:hover {
-            background: #0056b3;
-        }
-        .footer {
-            font-size: 12px;
-            color: gray;
-            margin-top: 20px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { width: 50%; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
+        button { background: #007bff; color: white; border: none; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✅ AI 추천 학습 스케줄</h1>
+        <h1>📚 AI 학습 스케줄 추천</h1>
+        <form action="/" method="post">
+            <label>📌 원하는 주간 공부 시간 (시간):</label>
+            <input type="number" name="weekly_hours" required>
 
-        <h2>📅 주간 공부 시간 배분</h2>
-        <ul>
-            {% for subject, hours in study_plan.items() %}
-                <li><strong>{{ subject }}:</strong> {{ hours }}시간</li>
-            {% endfor %}
-        </ul>
+            <label>📌 어려운 과목 선택:</label>
+            <select name="difficult_subject">
+                <option value="0">국어</option>
+                <option value="1">수학</option>
+                <option value="2">영어</option>
+                <option value="3">과학</option>
+            </select>
 
-        <h2>🕒 하루 공부 스케줄</h2>
-        {% for period, subjects in schedule.items() %}
-            <h3>{{ period }}</h3>
-            <ul>
-                {% for subject in subjects %}
-                    <li><strong>{{ subject }}</strong> - {{ subject_hours[subject] }}시간</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
+            <label>📌 선호하는 학습법:</label>
+            <select name="study_method">
+                <option value="0">노트 필기 (국어 & 영어 강화)</option>
+                <option value="1">문제 풀이 (균형 배분)</option>
+                <option value="2">인강 시청 (영어 & 과학 강화)</option>
+            </select>
 
-        <a href="/">🔄 다시 입력하기</a>
-        <div class="footer">
-            제작: 30911 박승훈
-        </div>
+            <button type="submit">📊 학습 스케줄 추천 받기</button>
+        </form>
     </div>
 </body>
 </html>
